@@ -19,8 +19,12 @@ class LayeredDropdown extends StatefulWidget {
   final double maxSpace;
 
   final Function openerIconClicked;
+  final Function onCardClosed;
+  final Function onCardOpened;
 
   LayeredDropdown({
+    this.onCardClosed,
+    this.onCardOpened,
     this.topCard,
     this.openerIconClicked,
     this.key,
@@ -83,6 +87,18 @@ class _LayeredDropdownState extends State<LayeredDropdown>
         print(_currentSpace);
         _currentSpace = _maxSpace * _animation.value + _minSpace;
       });
+    });
+
+    _animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        if (widget.onCardOpened != null) {
+          widget.onCardOpened();
+        }
+      } else if (status == AnimationStatus.dismissed) {
+        if (widget.onCardClosed != null) {
+          widget.onCardClosed();
+        }
+      }
     });
   }
 
