@@ -1,4 +1,4 @@
-# layereddropdown
+# layered_dropdown
 
 Backdrop like content holder widget that can be used anywhere.
 
